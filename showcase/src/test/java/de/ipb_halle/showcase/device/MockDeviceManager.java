@@ -15,45 +15,41 @@
  * limitations under the License.
  *
  */
-package de.ipb_halle.showcase.user;
+package de.ipb_halle.showcase.device;
 
-import jakarta.inject.Inject;
-import java.util.UUID;
+import de.ipb_halle.showcase.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  *
- * @author fbroda
+ * @author fblocal
  */
-public class UserManager {
+public class MockDeviceManager implements IDeviceManager {
 
-    private final Logger logger = LoggerFactory.getLogger(UserManager.class);
+    public final static String ID = "__mocked__";
 
-    @Inject
-    private UserDbService userDbService;
+    private Logger logger = LoggerFactory.getLogger(MockDeviceManager.class);
 
-    private User createUser(String name) {
-        String id = UUID.randomUUID().toString();
-        User user = new User();
-        user.setId(id);
-        user.setName(name);
-        userDbService.save(user);
-        return user;
-    }
+    @Override
+    public Device manageDevice(String owner) {
+        Device mockDevice = new Device();
+        mockDevice.setId(ID);
+        mockDevice.addPart(new Part(mockDevice, 1, "Mock Part"));
+        User mockUser = new User();
+        mockUser.setId(ID);
+        mockUser.setName(owner);
+        mockDevice.setUser(mockUser);
 
-    public User manageUser(String name) {
-        User u = createUser(name);
-        this.logger.info("""
+        logger.info("""
 
                          ************************************************************
                          *
-                         * UserManager created user {} with id {}
+                         * MockDeviceManager created mock device.
                          *
                          ************************************************************
-                         """,
-                u.getName(), u.getId());
-        return u;
+                         """);
+
+        return mockDevice;
     }
 }

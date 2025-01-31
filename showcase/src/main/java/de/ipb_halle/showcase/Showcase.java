@@ -47,13 +47,13 @@ public class Showcase {
         deviceManager.manageDevice("Jane Doe");
     }
 
-    public static Showcase getInstance(String fname) {
+    public static Showcase getInstance() {
         Showcase showcase = null;
         try {
 
             Properties properties = new Properties();
             properties.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.LocalInitialContextFactory");
-            properties.put("openejb.configuration", fname);
+            properties.put("openejb.configuration", "jar:" + Showcase.class.getResource("/openejb.xml").getFile());
 
             EJBContainer container = EJBContainer.createEJBContainer(properties);
             Context ctx = container.getContext();
@@ -67,16 +67,15 @@ public class Showcase {
     }
 
     /**
-     * To be called with an configuration file as a single command line
-     * argument.
+     * The "production" version of this showcase. Just build the project with
+     * <code>mvn install<code> and then run the showcase with
+     * <code>java -jar showcase/target/showcase-1.0-jar-with-dependencies.jar</code>
+     * without any further arguments.
+     *
      * @param argv
      */
     public static void main(String[] argv) {
-
-        if (argv.length < 1) {
-            throw new RuntimeException("No config file given.");
-        }
-        Showcase showcase = getInstance(argv[0]);
+        Showcase showcase = getInstance();
         showcase.manage();
     }
 }

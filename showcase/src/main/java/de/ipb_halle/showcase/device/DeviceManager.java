@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author fbroda
  */
-public class DeviceManager {
+public class DeviceManager implements IDeviceManager {
 
     private final Logger logger = LoggerFactory.getLogger(DeviceManager.class);
 
@@ -63,7 +63,14 @@ public class DeviceManager {
     public Device manageDevice(String owner) {
         Device dev = createBike(owner);
         deviceDbService.save(dev);
-        this.logger.info("DeviceManager created bike {} with id {} for {}",
+        this.logger.info("""
+
+                         ************************************************************
+                         *
+                         * DeviceManager created bike {} with id {} for {}
+                         *
+                         ************************************************************
+                         """,
                 dev.getName(), dev.getId(), dev.getUser().getName());
         return dev;
     }

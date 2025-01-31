@@ -10,7 +10,7 @@
 
     <Loggers>
         <!-- Application-specific Logger -->
-        <Logger name="de.ipb_halle" level="DEBUG" additivity="true">
+        <Logger name="de.ipb_halle" level="DEBUG" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
     </Loggers>

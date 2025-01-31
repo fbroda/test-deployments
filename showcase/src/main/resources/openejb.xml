@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<openejb>
+    <Resource id="showcaseDS" type="javax.sql.DataSource">
+        jdbcDriver = org.hsqldb.jdbcDriver
+        jdbcUrl = jdbc:hsqldb:mem:showcase;sql.syntax_pgs=true;sql.enforce_size=false
+        jtaManaged = true
+        userName = sa
+    </Resource>
+</openejb>

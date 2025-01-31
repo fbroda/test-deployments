@@ -39,6 +39,7 @@ public class Device {
     }
 
     public Device(DeviceEntity entity, User u) {
+        parts = new HashSet<> ();
         id = entity.getId();
         manufacturer = entity.getManufacturer();
         name = entity.getName();

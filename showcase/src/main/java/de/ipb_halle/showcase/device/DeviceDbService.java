@@ -46,10 +46,13 @@ public class DeviceDbService {
 
     public Device loadDeviceById(String id) {
         DeviceEntity entity = this.em.find(DeviceEntity.class, id);
-        User user = userDbService.loadUserById(entity.getUserId());
-        Device dev = new Device(entity, user);
-        dev.addParts(loadParts(dev));
-        return dev;
+        if (entity != null) {
+            User user = userDbService.loadUserById(entity.getUserId());
+            Device dev = new Device(entity, user);
+            dev.addParts(loadParts(dev));
+            return dev;
+        }
+        return null;
     }
 
     private List<Part> loadParts(Device dev) {
