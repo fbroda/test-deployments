@@ -18,6 +18,7 @@
 package de.ipb_halle.showcase;
 
 
+import de.ipb_halle.showcase.device.DeviceManager;
 import de.ipb_halle.showcase.user.UserManager;
 import jakarta.ejb.embeddable.EJBContainer;
 import jakarta.inject.Inject;
@@ -34,15 +35,16 @@ import org.apache.openejb.api.LocalClient;
 public class Showcase {
 
     @Inject
-    private UserManager userManager;
-/*
-    private ProjectManager projectManager;
-*/
+    private DeviceManager deviceManager;
 
-    private void manageUser() {
+    @Inject
+    private UserManager userManager;
+
+    private void manage() {
         // we do not care for the return value
         // testing is the interesting part
-        userManager.manage();
+        userManager.manageUser("John Doe");
+        deviceManager.manageDevice("Jane Doe");
     }
 
     public static Showcase getInstance(String fname) {
@@ -71,10 +73,10 @@ public class Showcase {
      */
     public static void main(String[] argv) {
 
-        if (argv.length < 2) {
+        if (argv.length < 1) {
             throw new RuntimeException("No config file given.");
         }
-        Showcase showcase = getInstance(argv[1]);
-        showcase.manageUser();
+        Showcase showcase = getInstance(argv[0]);
+        showcase.manage();
     }
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scan>
+    <classes/>
+    <packages>
+        <package>de.ipb_halle.showcase</package>
+        <package>de.ipb_halle.showcase.user</package>
+        <package>de.ipb_halle.showcase.device</package>
+    </packages>
+</scan>
+

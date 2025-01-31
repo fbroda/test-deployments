@@ -23,7 +23,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.ipb-halle</groupId>
-    <artifactId>signals</artifactId>
+    <artifactId>showcase</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
@@ -280,6 +280,7 @@
             <groupId>org.apache.tomee</groupId>
             <artifactId>openejb-junit5</artifactId>
             <version>9.0.0</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- needed on JDK 11: API, java.xml.bind module -->

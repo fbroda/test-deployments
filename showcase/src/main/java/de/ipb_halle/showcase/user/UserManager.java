@@ -29,20 +29,23 @@ import org.slf4j.LoggerFactory;
  */
 public class UserManager {
 
-    public final static String NAME = "John Doe";
-
     private final Logger logger = LoggerFactory.getLogger(UserManager.class);
 
     @Inject
     private UserDbService userDbService;
 
-    public String manage() {
+    private User createUser(String name) {
         String id = UUID.randomUUID().toString();
         User user = new User();
         user.setId(id);
-        user.setName(NAME);
+        user.setName(name);
         userDbService.save(user);
-        this.logger.info("UserManager created user {} with id {}", NAME, id);
-        return id;
+        return user;
+    }
+
+    public User manageUser(String name) {
+        User u = createUser(name);
+        this.logger.info("UserManager created user {} with id {}", u.getName(), u.getId());
+        return u;
     }
 }

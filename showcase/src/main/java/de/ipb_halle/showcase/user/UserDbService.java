@@ -33,7 +33,7 @@ public class UserDbService {
     @PersistenceContext
     private EntityManager em;
 
-    public User loadById(String id) {
+    public User loadUserById(String id) {
         UserEntity entity = this.em.find(UserEntity.class, id);
         return new User(entity);
     }

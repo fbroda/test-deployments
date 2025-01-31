@@ -15,7 +15,7 @@
  * limitations under the License.
  *
  */
-package de.ipb_halle.showcase.user;
+package de.ipb_halle.showcase.device;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,28 +23,50 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="users")
-public class UserEntity {
+@Table(name="devices")
+public class DeviceEntity {
 
     @Id
     private String id;
 
     @Column
+    private String manufacturer;
+
+    @Column
     private String name;
+
+    @Column(name = "user_id")
+    private String userId;
 
     public String getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public void setName(String n) {
         this.name = n;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String id) {
+        this.userId = id;
     }
 }
