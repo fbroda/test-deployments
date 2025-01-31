@@ -19,6 +19,7 @@ package de.ipb_halle.showcase.device;
 
 import de.ipb_halle.showcase.user.User;
 import de.ipb_halle.showcase.user.UserManager;
+import jakarta.ejb.Local;
 import jakarta.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author fbroda
  */
+@Local
 public class DeviceManager implements IDeviceManager {
 
     private final Logger logger = LoggerFactory.getLogger(DeviceManager.class);

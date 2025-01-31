@@ -18,6 +18,7 @@
 package de.ipb_halle.showcase.device;
 
 import de.ipb_halle.showcase.user.User;
+import jakarta.ejb.LocalBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +26,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author fblocal
  */
+@LocalBean
 public class MockDeviceManager implements IDeviceManager {
 
     public final static String ID = "__mocked__";
@@ -45,10 +47,10 @@ public class MockDeviceManager implements IDeviceManager {
 
                          ************************************************************
                          *
-                         * MockDeviceManager created mock device.
+                         * MockDeviceManager created mock device: {}
                          *
                          ************************************************************
-                         """);
+                         """, owner);
 
         return mockDevice;
     }

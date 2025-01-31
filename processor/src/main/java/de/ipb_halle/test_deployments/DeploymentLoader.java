@@ -39,13 +39,20 @@ import org.slf4j.LoggerFactory;
 
 public class DeploymentLoader extends ClassLoader {
 
-    private Logger logger = LoggerFactory.getLogger(DeploymentProcessor.class);
-    private Map<String, Class<?>> classMap;
+    private final Logger logger = LoggerFactory.getLogger(DeploymentProcessor.class);
+    private final Map<String, Class<?>> classMap;
     private URLClassLoader loader;
+    private Path buildOutputDir;
 
     public DeploymentLoader() {
         super();
         classMap = new HashMap<> ();
+        buildOutputDir = Path.of("target", "classes");
+    }
+
+    public void setBuildOutputDir(String dir) {
+        logger.warn("Project Build Output Dir: {}", dir);
+        buildOutputDir = Path.of(dir);
     }
 
     public void setClassPath(String classpath) {
@@ -55,9 +62,8 @@ public class DeploymentLoader extends ClassLoader {
                 // logger.warn("ADD URL: {}", src);
                 urls.add(new URL("file://" + src));
             }
-            String src = Path.of("target", "classes").toAbsolutePath().toString();
-            // logger.warn("ADD URL: {}", src);
-            urls.add(new URL("file://" + Path.of("target", "classes").toAbsolutePath().toString()));
+            // logger.warn("ADD URL: {}", buildOutputDir.toString());
+            urls.add(new URL("file://" + buildOutputDir.toAbsolutePath().toString()));
             loader = new URLClassLoader(urls.toArray(new URL[0]), this.getClass().getClassLoader());
         } catch(Exception e) {
             logger.warn("caught an exception", e);
@@ -65,11 +71,12 @@ public class DeploymentLoader extends ClassLoader {
     }
 
     private Class<?> doLoad(String name) {
-        String path = name.replace(".", "/");
-        try (FileInputStream stream = new FileInputStream(String.format("target/classes/%s.class", path))) {
+        String path = String.format("%s/%s.class", buildOutputDir.toString(), name.replace(".", "/"));
+
+        try (FileInputStream stream = new FileInputStream(path)) {
             List<byte[]> bytes = new ArrayList<> ();
             int len = 0;
-            int chunkLen = 0;
+            int chunkLen;
             do {
                 byte[] chunk = new byte[4096];
                 chunkLen = stream.read(chunk);
@@ -85,7 +92,7 @@ public class DeploymentLoader extends ClassLoader {
                     classBytes[i++] = b;
                 }
             }
-            return defineClass(classBytes, 0, len);
+            return defineClass(name, classBytes, 0, len);
         } catch(Exception e) {
             logger.warn("doLoad({}) {}", name, e.getMessage(), e);
             // ignore

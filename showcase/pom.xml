@@ -68,7 +68,10 @@
                     <!-- <compilerArgument>-Xlint:all</compilerArgument> -->
                     <compilerArgs>
                         <arg>-Xlint:all</arg>
+                        <arg>-Abuilddir=${project.build.outputDirectory}</arg>
                         <arg>-Aclasspath=${maven.compile.classpath}</arg>
+                        <arg>-Atestbase=de.ipb_halle.showcase.TestBase</arg>
+                        <arg>-Atestprefix=TDGen</arg>
                     </compilerArgs>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <annotationProcessorPaths>
