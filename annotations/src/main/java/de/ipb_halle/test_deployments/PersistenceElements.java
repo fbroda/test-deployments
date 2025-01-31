@@ -1,5 +1,5 @@
 /*
- * IPB Signals client
+ * Test Deployments
  * Copyright 2025 Leibniz-Institut f. Pflanzenbiochemie
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
